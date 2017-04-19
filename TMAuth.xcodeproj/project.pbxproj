@@ -10,6 +10,13 @@
 		3CBC0FBD1EA7D84400454B8B /* TMAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CBC0FB31EA7D84400454B8B /* TMAuth.framework */; };
 		3CBC0FC21EA7D84400454B8B /* TMAuthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBC0FC11EA7D84400454B8B /* TMAuthTests.swift */; };
 		3CBC0FC41EA7D84400454B8B /* TMAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = 3CBC0FB61EA7D84400454B8B /* TMAuth.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3CBC0FCE1EA7D85000454B8B /* TMAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBC0FCD1EA7D85000454B8B /* TMAuth.swift */; };
+		3CBC0FE61EA7D8AF00454B8B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CBC0FE31EA7D8AF00454B8B /* Alamofire.framework */; };
+		3CBC0FE71EA7D8AF00454B8B /* AlamofireObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CBC0FE41EA7D8AF00454B8B /* AlamofireObjectMapper.framework */; };
+		3CBC0FE81EA7D8AF00454B8B /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CBC0FE51EA7D8AF00454B8B /* ObjectMapper.framework */; };
+		3CBC0FEB1EA7DA2900454B8B /* TMCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CBC0FE91EA7D9B700454B8B /* TMCore.framework */; };
+		3CBC0FEF1EA7DB6200454B8B /* TMUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBC0FEE1EA7DB6200454B8B /* TMUser.swift */; };
+		3CBC0FF11EA7DBFF00454B8B /* TMResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBC0FF01EA7DBFF00454B8B /* TMResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +36,13 @@
 		3CBC0FBC1EA7D84400454B8B /* TMAuthTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TMAuthTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CBC0FC11EA7D84400454B8B /* TMAuthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMAuthTests.swift; sourceTree = "<group>"; };
 		3CBC0FC31EA7D84400454B8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3CBC0FCD1EA7D85000454B8B /* TMAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TMAuth.swift; sourceTree = "<group>"; };
+		3CBC0FE31EA7D8AF00454B8B /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "/Users/jasontsai/Desktop/0_YomApps/TMTemplate/Pods/../build/Debug-iphoneos/Alamofire.framework"; sourceTree = "<absolute>"; };
+		3CBC0FE41EA7D8AF00454B8B /* AlamofireObjectMapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireObjectMapper.framework; path = "/Users/jasontsai/Desktop/0_YomApps/TMTemplate/Pods/../build/Debug-iphoneos/AlamofireObjectMapper.framework"; sourceTree = "<absolute>"; };
+		3CBC0FE51EA7D8AF00454B8B /* ObjectMapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjectMapper.framework; path = "/Users/jasontsai/Desktop/0_YomApps/TMTemplate/Pods/../build/Debug-iphoneos/ObjectMapper.framework"; sourceTree = "<absolute>"; };
+		3CBC0FE91EA7D9B700454B8B /* TMCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TMCore.framework; path = "../../../../Library/Developer/Xcode/DerivedData/TMTemplate-barfnvjvwrkgiygniwrkyarzlodh/Build/Products/Debug-iphonesimulator/TMCore.framework"; sourceTree = "<group>"; };
+		3CBC0FEE1EA7DB6200454B8B /* TMUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TMUser.swift; sourceTree = "<group>"; };
+		3CBC0FF01EA7DBFF00454B8B /* TMResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TMResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +50,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CBC0FEB1EA7DA2900454B8B /* TMCore.framework in Frameworks */,
+				3CBC0FE61EA7D8AF00454B8B /* Alamofire.framework in Frameworks */,
+				3CBC0FE71EA7D8AF00454B8B /* AlamofireObjectMapper.framework in Frameworks */,
+				3CBC0FE81EA7D8AF00454B8B /* ObjectMapper.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,6 +74,7 @@
 				3CBC0FB51EA7D84400454B8B /* TMAuth */,
 				3CBC0FC01EA7D84400454B8B /* TMAuthTests */,
 				3CBC0FB41EA7D84400454B8B /* Products */,
+				3CBC0FE21EA7D8AF00454B8B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -73,6 +92,9 @@
 			children = (
 				3CBC0FB61EA7D84400454B8B /* TMAuth.h */,
 				3CBC0FB71EA7D84400454B8B /* Info.plist */,
+				3CBC0FCD1EA7D85000454B8B /* TMAuth.swift */,
+				3CBC0FEE1EA7DB6200454B8B /* TMUser.swift */,
+				3CBC0FF01EA7DBFF00454B8B /* TMResponse.swift */,
 			);
 			path = TMAuth;
 			sourceTree = "<group>";
@@ -84,6 +106,17 @@
 				3CBC0FC31EA7D84400454B8B /* Info.plist */,
 			);
 			path = TMAuthTests;
+			sourceTree = "<group>";
+		};
+		3CBC0FE21EA7D8AF00454B8B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3CBC0FE91EA7D9B700454B8B /* TMCore.framework */,
+				3CBC0FE31EA7D8AF00454B8B /* Alamofire.framework */,
+				3CBC0FE41EA7D8AF00454B8B /* AlamofireObjectMapper.framework */,
+				3CBC0FE51EA7D8AF00454B8B /* ObjectMapper.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,6 +182,7 @@
 					3CBC0FB21EA7D84400454B8B = {
 						CreatedOnToolsVersion = 8.2;
 						DevelopmentTeam = L9NJSH4CZ8;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					3CBC0FBB1EA7D84400454B8B = {
@@ -198,6 +232,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CBC0FCE1EA7D85000454B8B /* TMAuth.swift in Sources */,
+				3CBC0FEF1EA7DB6200454B8B /* TMUser.swift in Sources */,
+				3CBC0FF11EA7DBFF00454B8B /* TMResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,6 +359,7 @@
 		3CBC0FC81EA7D84400454B8B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = L9NJSH4CZ8;
@@ -334,6 +372,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.yomstudio.TMAuth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -341,6 +380,7 @@
 		3CBC0FC91EA7D84400454B8B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = L9NJSH4CZ8;
@@ -360,6 +400,7 @@
 		3CBC0FCB1EA7D84400454B8B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = L9NJSH4CZ8;
 				INFOPLIST_FILE = TMAuthTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -372,6 +413,7 @@
 		3CBC0FCC1EA7D84400454B8B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = L9NJSH4CZ8;
 				INFOPLIST_FILE = TMAuthTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -400,6 +442,7 @@
 				3CBC0FC91EA7D84400454B8B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3CBC0FCA1EA7D84400454B8B /* Build configuration list for PBXNativeTarget "TMAuthTests" */ = {
 			isa = XCConfigurationList;
@@ -408,6 +451,7 @@
 				3CBC0FCC1EA7D84400454B8B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
