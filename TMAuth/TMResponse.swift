@@ -9,15 +9,15 @@
 import Foundation
 import ObjectMapper
 
-class TMResponse: Mappable {
+public class TMResponse: Mappable {
     var status: Int?
     var message: String?
     
-    required init?(map: Map) {
+    required public init?(map: Map) {
         
     }
     
-    func mapping(map: Map) {
+    public func mapping(map: Map) {
         self.status <- map["status"]
         self.message <- map["message"]
     }

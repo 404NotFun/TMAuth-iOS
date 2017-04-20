@@ -11,14 +11,28 @@ import Alamofire
 import AlamofireObjectMapper
 import TMCore
 
-class TMAuth {
-    static let shared = TMAuth()
+public class TMAuth {
+    public static let shared = TMAuth()
     public var SERVER_DOMAIN = ""
+    public var AUTH_KEY = ""
+    public var USER_ID = ""
+    public var TOKEN = ""
+    
     public var REQUEST_CONFIG: [String: String] = ["Client-Service":"frontend-client","Auth-Key":"macFyDevApi", "User-ID": "", "Authorization": "", "Cache-Control": "no-cache"]
+    
+    public func config(serverDomain: String, authKey: String, userId: String, token: String) {
+        self.SERVER_DOMAIN = serverDomain
+        self.AUTH_KEY = authKey
+        self.USER_ID = userId
+        self.TOKEN = token
+        REQUEST_CONFIG["Auth-Key"] = self.AUTH_KEY
+        REQUEST_CONFIG["User-ID"]  = self.USER_ID
+        REQUEST_CONFIG["Authorization"] = self.TOKEN
+    }
     
     // MARK: - POST
     // 1. 註冊{username, email, password}
-    func signUp(user: TMUser, completion: @escaping(NSDictionary)->(), failure: @escaping ()->()) {
+    public func signUp(user: TMUser, completion: @escaping(NSDictionary)->(), failure: @escaping ()->()) {
         NetworkingManager.sharedInstance.connectedNetworking {
             let url: String = self.SERVER_DOMAIN+"auth/register"
             let tempAry = NSArray.init(array: user.favorites)
@@ -49,7 +63,7 @@ class TMAuth {
     }
     
     // 註冊{email, fb_id, profile_photo_url}
-    func signUpByFacebook(user: TMUser, completion: @escaping(NSDictionary)->(), failure: @escaping ()->()) {
+    public func signUpByFacebook(user: TMUser, completion: @escaping(NSDictionary)->(), failure: @escaping ()->()) {
         NetworkingManager.sharedInstance.connectedNetworking {
             let url: String = self.SERVER_DOMAIN+"auth/register/facebook"
             let tempAry = NSArray.init(array: user.favorites)
@@ -83,7 +97,7 @@ class TMAuth {
     }
     
     // 註冊{email, g_id, profile_photo_url}
-    func signUpByGoogle(user: TMUser, completion: @escaping(NSDictionary)->(), failure: @escaping ()->()) {
+    public func signUpByGoogle(user: TMUser, completion: @escaping(NSDictionary)->(), failure: @escaping ()->()) {
         NetworkingManager.sharedInstance.connectedNetworking {
             let url: String = self.SERVER_DOMAIN+"auth/register/google"
             let tempAry = NSArray.init(array: user.favorites)
@@ -117,7 +131,7 @@ class TMAuth {
     }
     
     // 登入{token}
-    func signIn(token: String, completion: @escaping(_ response: [String: Any])->(), failure: @escaping ()->()) {
+    public func signIn(token: String, completion: @escaping(_ response: [String: Any])->(), failure: @escaping ()->()) {
         NetworkingManager.sharedInstance.connectedNetworking {
             let url: String = self.SERVER_DOMAIN+"auth/login/token"
             let parameters: [String: String] = ["token": token]
@@ -137,7 +151,7 @@ class TMAuth {
     }
     
     // 登入{email, password}
-    func signIn(user: TMUser, completion: @escaping(_ response: [String: Any])->(), failure: @escaping ()->()) {
+    public func signIn(user: TMUser, completion: @escaping(_ response: [String: Any])->(), failure: @escaping ()->()) {
         NetworkingManager.sharedInstance.connectedNetworking {
             let url: String = self.SERVER_DOMAIN+"auth/login"
             let parameters: [String: String] = ["username": user.username, "password": user.password]
@@ -157,7 +171,7 @@ class TMAuth {
     }
     
     // 登入{fbId, accessToken}
-    func signInByFacebook(fbId: String, completion: @escaping(_ response: [String: Any])->(), failure: @escaping ()->()) {
+    public func signInByFacebook(fbId: String, completion: @escaping(_ response: [String: Any])->(), failure: @escaping ()->()) {
         NetworkingManager.sharedInstance.connectedNetworking {
             let parameters: Parameters = ["fb_id": fbId]
             let url: String = self.SERVER_DOMAIN+"auth/login/facebook"
@@ -177,7 +191,7 @@ class TMAuth {
     }
     
     // 登入{gId, accessToken}
-    func signInByGoogle(gId: String, completion: @escaping(_ response: [String : Any])->(), failure: @escaping ()->()) {
+    public func signInByGoogle(gId: String, completion: @escaping(_ response: [String : Any])->(), failure: @escaping ()->()) {
         NetworkingManager.sharedInstance.connectedNetworking {
             let parameters: Parameters = ["g_id": gId]
             let url: String = self.SERVER_DOMAIN+"auth/login/google"
@@ -196,7 +210,7 @@ class TMAuth {
         }
     }
     
-    func checkFBAccessToken(accessToken: String, completion: @escaping (Bool)->()) {
+    public func checkFBAccessToken(accessToken: String, completion: @escaping (Bool)->()) {
         NetworkingManager.sharedInstance.connectedNetworking {
             let url: String = "https://graph.facebook.com/app?access_token="+accessToken
             Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: self.REQUEST_CONFIG).responseJSON(completionHandler: { response in
@@ -209,7 +223,7 @@ class TMAuth {
         }
     }
     
-    func checkGoogleAccessToken(accessToken: String, completion: @escaping (Bool)->()) {
+    public func checkGoogleAccessToken(accessToken: String, completion: @escaping (Bool)->()) {
         NetworkingManager.sharedInstance.connectedNetworking {
             let url: String = "https://www.googleapis.com/oauth2/v3/tokeninfo?id_token="+accessToken
             Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: self.REQUEST_CONFIG).responseJSON(completionHandler: { response in
@@ -222,7 +236,7 @@ class TMAuth {
         }
     }
     
-    func signOut(id: String, token: String, completion: @escaping(_ response: [String: Any])->(), failure: @escaping ()->()) {
+    public func signOut(id: String, token: String, completion: @escaping(_ response: [String: Any])->(), failure: @escaping ()->()) {
         NetworkingManager.sharedInstance.connectedNetworking {
             let url: String = self.SERVER_DOMAIN+"auth/logout"
             let parameters: [String: String] = ["users_id": id, "token": token]
@@ -244,7 +258,7 @@ class TMAuth {
     }
     
     // 檢查{email}的FBAuth狀態
-    func checkFBAuthStatus(email: String, completion: @escaping(_ response: [String: Any])->(), failure: @escaping (_ error: Error)->()) {
+    public func checkFBAuthStatus(email: String, completion: @escaping(_ response: [String: Any])->(), failure: @escaping (_ error: Error)->()) {
         NetworkingManager.sharedInstance.connectedNetworking {
             let url: String = self.SERVER_DOMAIN+"auth/FBAuthStatus"
             let parameters: [String: String] = ["email": email]
@@ -266,7 +280,7 @@ class TMAuth {
     }
     
     // 檢查{email}的GoogleAuth狀態
-    func checkGoogleAuthStatus(email: String, completion: @escaping(_ response: [String: Any])->(), failure: @escaping ()->()) {
+    public func checkGoogleAuthStatus(email: String, completion: @escaping(_ response: [String: Any])->(), failure: @escaping ()->()) {
         NetworkingManager.sharedInstance.connectedNetworking {
             let url: String = self.SERVER_DOMAIN+"auth/GoogleAuthStatus"
             let parameters: [String: String] = ["email": email]
@@ -288,7 +302,7 @@ class TMAuth {
     }
     
     // 檢查{fb_id}的FBAuth狀態
-    func checkFacebookAuthValidation(fbId: String, completion: @escaping(_ response: [String: Any])->(), failure: @escaping (_ error: Error)->()) {
+    public func checkFacebookAuthValidation(fbId: String, completion: @escaping(_ response: [String: Any])->(), failure: @escaping (_ error: Error)->()) {
         NetworkingManager.sharedInstance.connectedNetworking {
             let url: String = self.SERVER_DOMAIN+"auth/facebookAuthValidation"
             let parameters: [String: String] = ["fb_id": fbId]
@@ -308,7 +322,7 @@ class TMAuth {
     }
     
     // 檢查{g_id}的GoogleAuth狀態
-    func checkGoogleAuthValidation(gId: String, completion: @escaping(_ response: [String: Any])->(), failure: @escaping (Error)->()) {
+    public func checkGoogleAuthValidation(gId: String, completion: @escaping(_ response: [String: Any])->(), failure: @escaping (Error)->()) {
         NetworkingManager.sharedInstance.connectedNetworking {
             let url: String = self.SERVER_DOMAIN+"auth/googleAuthValidation"
             let parameters: [String: String] = ["g_id": gId]
@@ -329,7 +343,7 @@ class TMAuth {
     
     // MARK: - GET
     // 檢查{username}
-    func checkExists(username: String, completion:(@escaping (NSDictionary)->()), failure:@escaping ()->()) {
+    public func checkExists(username: String, completion:(@escaping (NSDictionary)->()), failure:@escaping ()->()) {
         NetworkingManager.sharedInstance.connectedNetworking {
             let url = self.SERVER_DOMAIN+"auth/checkUsername/"+username
             Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: self.REQUEST_CONFIG).responseJSON(completionHandler: { response in
@@ -344,7 +358,7 @@ class TMAuth {
     }
     
     // 檢查{email}
-    func checkExists(email: String, completion:(@escaping (_ response: TMResponse)->()), failure:@escaping ()->()) {
+    public func checkExists(email: String, completion:(@escaping (_ response: TMResponse)->()), failure:@escaping ()->()) {
         NetworkingManager.sharedInstance.connectedNetworking {
             let url = self.SERVER_DOMAIN+"auth/checkEmail/"+email
             Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: self.REQUEST_CONFIG).responseObject(completionHandler: { (response: DataResponse<TMResponse>) in
@@ -357,7 +371,7 @@ class TMAuth {
     }
     
     // 檢查{email}用戶的{confirm_code}是否正確
-    func checkConfirmCode(_ code: String, email: String, completion: @escaping (_ isMatch: Bool)->(), failure: @escaping ()->()) {
+    public func checkConfirmCode(_ code: String, email: String, completion: @escaping (_ isMatch: Bool)->(), failure: @escaping ()->()) {
         NetworkingManager.sharedInstance.connectedNetworking {
             let url = self.SERVER_DOMAIN+"auth/checkConfirmCode/"+code+"/email/"+email
             Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: self.REQUEST_CONFIG).responseObject(completionHandler: { (response: DataResponse<TMResponse>) in
@@ -376,7 +390,7 @@ class TMAuth {
     }
     
     // 檢查{username}用戶的{confirm_code}是否正確
-    func checkConfirmCode(_ code: String, username: String, completion: @escaping (_ isMatch: Bool)->(), failure: @escaping ()->()) {
+    public func checkConfirmCode(_ code: String, username: String, completion: @escaping (_ isMatch: Bool)->(), failure: @escaping ()->()) {
         NetworkingManager.sharedInstance.connectedNetworking {
             let url = self.SERVER_DOMAIN+"auth/checkConfirmCode/"+code+"/username/"+username
             Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: self.REQUEST_CONFIG).responseObject(completionHandler: { (response: DataResponse<TMResponse>) in
@@ -395,7 +409,7 @@ class TMAuth {
     }
     
     // 取得{id}的用戶
-    func getUserData(id: String, completion: @escaping (_ response: TMUser)->(), failure:@escaping ()->()) {
+    public func getUserData(id: String, completion: @escaping (_ response: TMUser)->(), failure:@escaping ()->()) {
         NetworkingManager.sharedInstance.connectedNetworking {
             let url = self.SERVER_DOMAIN+"auth/detail/"+id
             Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: self.REQUEST_CONFIG).responseObject(completionHandler: { (response: DataResponse<TMUser>) in
@@ -414,7 +428,7 @@ class TMAuth {
     }
     
     // 取得{id}的用戶
-    func getUser(id: String, completion: @escaping (_ response: TMUser)->(), failure:@escaping ()->()) {
+    public func getUser(id: String, completion: @escaping (_ response: TMUser)->(), failure:@escaping ()->()) {
         NetworkingManager.sharedInstance.connectedNetworking {
             let url = self.SERVER_DOMAIN+"users/"+id
             Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: self.REQUEST_CONFIG).responseObject(completionHandler: { (response: DataResponse<TMUser>) in
@@ -433,7 +447,7 @@ class TMAuth {
     }
     
     // 取得{id}用戶的favorites
-    func getFavorites(id: String, completion: @escaping (NSDictionary)->(), failure:@escaping ()->()) {
+    public func getFavorites(id: String, completion: @escaping (NSDictionary)->(), failure:@escaping ()->()) {
         NetworkingManager.sharedInstance.connectedNetworking {
             let url = self.SERVER_DOMAIN+"auth/favorites/"+id
             Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: self.REQUEST_CONFIG).responseJSON(completionHandler: { response in
@@ -455,7 +469,7 @@ class TMAuth {
     
     // MARK: - PUT
     // 更新{id}的用戶
-    func update(id: String, parameters: [String: String], completion:(@escaping (_ response: TMResponse)->()), failure:@escaping ()->()) {
+    public func update(id: String, parameters: [String: String], completion:(@escaping (_ response: TMResponse)->()), failure:@escaping ()->()) {
         NetworkingManager.sharedInstance.connectedNetworking {
             let url = self.SERVER_DOMAIN+"auth/updateById/"+id
             Alamofire.request(url, method: .put, parameters: parameters, encoding: JSONEncoding.default, headers: self.REQUEST_CONFIG).responseObject(completionHandler: { (response: DataResponse<TMResponse>) in
@@ -470,7 +484,7 @@ class TMAuth {
     }
     
     // 更新{email}的用戶
-    func update(email: String, parameters: [String: String], completion:(@escaping (_ response: TMResponse)->()), failure:@escaping ()->()) {
+    public func update(email: String, parameters: [String: String], completion:(@escaping (_ response: TMResponse)->()), failure:@escaping ()->()) {
         NetworkingManager.sharedInstance.connectedNetworking {
             let url = self.SERVER_DOMAIN+"auth/updateByEmail/"+email
             Alamofire.request(url, method: .put, parameters: parameters, encoding: JSONEncoding.default, headers: self.REQUEST_CONFIG).responseObject(completionHandler: { (response: DataResponse<TMResponse>) in
@@ -483,7 +497,7 @@ class TMAuth {
     }
     
     // Public更新{email}的用戶
-    func updatePublic(email: String, parameters: [String: String], completion:(@escaping (_ response: TMResponse)->()), failure:@escaping ()->()) {
+    public func updatePublic(email: String, parameters: [String: String], completion:(@escaping (_ response: TMResponse)->()), failure:@escaping ()->()) {
         NetworkingManager.sharedInstance.connectedNetworking {
             let url = self.SERVER_DOMAIN+"auth/updatePublicByEmail/"+email
             Alamofire.request(url, method: .put, parameters: parameters, encoding: JSONEncoding.default, headers: self.REQUEST_CONFIG).responseObject(completionHandler: { (response: DataResponse<TMResponse>) in
@@ -496,7 +510,7 @@ class TMAuth {
     }
     
     // 綁定{user_id}臉書帳號
-    func boundFBAuth(params: Parameters, completion: @escaping(_ response: TMResponse)->(), failure: @escaping (_ errorMsg: String)->()) {
+    public func boundFBAuth(params: Parameters, completion: @escaping(_ response: TMResponse)->(), failure: @escaping (_ errorMsg: String)->()) {
         NetworkingManager.sharedInstance.connectedNetworking {
             let url = self.SERVER_DOMAIN+"auth/bound/facebook"
             Alamofire.request(url, method: .put, parameters: params, encoding: JSONEncoding.default, headers: self.REQUEST_CONFIG).responseObject(completionHandler: { (response: DataResponse<TMResponse>) in
@@ -517,7 +531,7 @@ class TMAuth {
     }
     
     // 綁定{user_id}Google帳號
-    func boundGoogleAuth(params: Parameters, completion: @escaping(_ response: TMResponse)->(), failure: @escaping (_ errorMsg: String)->()) {
+    public func boundGoogleAuth(params: Parameters, completion: @escaping(_ response: TMResponse)->(), failure: @escaping (_ errorMsg: String)->()) {
         NetworkingManager.sharedInstance.connectedNetworking {
             let url = self.SERVER_DOMAIN+"auth/bound/google"
             Alamofire.request(url, method: .put, parameters: params, encoding: JSONEncoding.default, headers: self.REQUEST_CONFIG).responseObject(completionHandler: { (response: DataResponse<TMResponse>) in
@@ -536,7 +550,7 @@ class TMAuth {
     }
     
     // 更新{email}用戶的{password}
-    func update(_ email: String, password: String, completion:@escaping ()->(), failure:@escaping ()->()) {
+    public func update(_ email: String, password: String, completion:@escaping ()->(), failure:@escaping ()->()) {
         NetworkingManager.sharedInstance.connectedNetworking {
             let url = self.SERVER_DOMAIN+"auth/changePassword/"+email
             let parameters: [String: String] = ["password": password];
@@ -552,7 +566,7 @@ class TMAuth {
     }
     
     // {id}用戶積分增加{add_exp}
-    func increment(_ id: String, exp: Int, completion:(@escaping (_ response: TMResponse)->()), failure:@escaping ()->()) {
+    public func increment(_ id: String, exp: Int, completion:(@escaping (_ response: TMResponse)->()), failure:@escaping ()->()) {
         NetworkingManager.sharedInstance.connectedNetworking {
             let url = self.SERVER_DOMAIN+"auth/user/"+id+"/incrementExp/"+String(exp)
             Alamofire.request(url, method: .put, parameters: nil, encoding: JSONEncoding.default, headers: self.REQUEST_CONFIG).responseObject(completionHandler: { (response: DataResponse<TMResponse>) in
@@ -567,7 +581,7 @@ class TMAuth {
     }
     
     // {username}用戶積分增加{add_exp}
-    func increment(username: String, exp: Int, completion:(@escaping (_ response: TMResponse)->()), failure:@escaping ()->()) {
+    public func increment(username: String, exp: Int, completion:(@escaping (_ response: TMResponse)->()), failure:@escaping ()->()) {
         NetworkingManager.sharedInstance.connectedNetworking {
             let url = self.SERVER_DOMAIN+"auth/username/"+username+"/incrementExp/"+String(exp)
             Alamofire.request(url, method: .put, parameters: nil, encoding: JSONEncoding.default, headers: self.REQUEST_CONFIG).responseObject(completionHandler: { (response: DataResponse<TMResponse>) in

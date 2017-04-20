@@ -9,7 +9,7 @@
 import Foundation
 import ObjectMapper
 
-class TMUser: Mappable {
+public class TMUser: Mappable {
     // 基本資訊
     var id = String()
     var nickname = String()
@@ -37,7 +37,7 @@ class TMUser: Mappable {
     var providedCount = Int()
     var activityMsg = String()
     
-    required init?(map: Map) {
+    required public init?(map: Map) {
         
     }
     
@@ -56,7 +56,7 @@ class TMUser: Mappable {
         self.favorites = favorites
     }
     
-    func mapping(map: Map) {
+    public func mapping(map: Map) {
         var temp = String()
         self.id             <- map["id"]
         self.username       <- map["username"]
